@@ -7,3 +7,7 @@ htmlcov/
 *.log
 .env
 .env*
+*.egg-info/
+coverage.json
+build/
+dist/

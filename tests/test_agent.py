@@ -2,7 +2,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from linesignal.agent import SYSTEM_PROMPT, build_agent, run_agent
+from linesignal.agent import SYSTEM_PROMPT, build_agent, run_agent, run_baseline, model_id
 
 
 def test_baseline_has_no_tools():
@@ -84,7 +84,7 @@ def test_unknown_provider_fails_explicitly(monkeypatch):
 def test_cli_saves_real_result(monkeypatch, tmp_path):
     import linesignal.agent as module
     target = tmp_path / 'nested' / 'before.json'
-    monkeypatch.setattr('sys.argv', ['agent', '--prompt', 'Investigate STOP-001', '--out', str(target)])
+    monkeypatch.setattr('sys.argv', ['agent', '--prompt', 'Describe generic troubleshooting', '--out', str(target)])
     monkeypatch.setattr(module, 'make_model', lambda: object())
     monkeypatch.setattr(module, 'build_agent', lambda model: lambda prompt: 'No telemetry available')
     module.main()
@@ -100,3 +100,24 @@ def test_model_failure_is_never_reported_as_success():
         raise RuntimeError('inference unavailable')
     with pytest.raises(RuntimeError, match='inference unavailable'):
         run_agent('Investigate STOP-001', failing)
+
+
+def test_baseline_incident_gate_does_not_request_unverifiable_diagnosis():
+    agent=MagicMock()
+    result=run_baseline('Investigate STOP-001',agent)
+    assert 'cannot determine' in result['answer'].lower()
+    assert result['output_route']=='no_evidence_gate'
+    agent.assert_not_called()
+
+
+def test_baseline_can_answer_generic_questions():
+    agent=MagicMock(return_value='Possible causes include sensor misalignment and a jam.')
+    assert 'Possible causes' in run_baseline('List generic causes of conveyor stops',agent)['answer']
+    agent.assert_called_once()
+
+
+@pytest.mark.parametrize('provider,expected',[('ollama','qwen3:1.7b'),('bedrock','amazon.nova-lite-v1:0')])
+def test_provider_model_metadata_matches_configuration(monkeypatch,provider,expected):
+    monkeypatch.setenv('LINESIGNAL_PROVIDER',provider)
+    monkeypatch.delenv('LINESIGNAL_MODEL',raising=False)
+    assert model_id()==expected

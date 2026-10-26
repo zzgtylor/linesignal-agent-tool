@@ -7,6 +7,13 @@ dependencies = ["strands-agents[ollama]==1.62.0", "boto3==1.43.118"]
 [project.optional-dependencies]
 test = ["pytest==9.1.1", "pytest-cov==7.1.0"]
 
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["linesignal*"]
+
 [tool.pytest.ini_options]
 pythonpath = ["."]
 testpaths = ["tests"]

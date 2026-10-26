@@ -1,9 +1,9 @@
-# LineSignal — baseline
+# LineSignal — guarded baseline
 
-A read-only production-line troubleshooting agent built with the Strands Agents SDK. This baseline has no tools and cannot inspect incident telemetry. It explicitly distinguishes hypotheses from evidence.
+A read-only production-line assistant built with the Strands Agents SDK and an open model on AWS CloudShell. It can explain generic troubleshooting. A deterministic no-evidence gate refuses incident-specific conclusions when no telemetry tool is registered. The model is not trusted to invent observations.
 
-Run `python -m pip install -e .[test]`, start Ollama on loopback with `qwen3:0.6b`, then run `python -m linesignal.agent`.
+This baseline has zero tools. The extension is a separate commit. Baseline created during the October 2026 weekend challenge, not represented as a pre-existing production system.
 
-Baseline created on October 26, 2026. The tool extension will be a separate commit so the before/after is reproducible.
+Install with `python -m pip install -e .[test]`. Start Ollama on loopback and pull `qwen3:1.7b`. Run `python -m linesignal.agent` for the incident gate or pass a generic maintenance question with `--prompt`.
 
 Tests: `python -m pytest -xvs --cov=linesignal`.
