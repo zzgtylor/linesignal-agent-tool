@@ -2,6 +2,7 @@
 import argparse
 import json
 import os
+import re
 from pathlib import Path
 
 from strands import Agent, tool
@@ -48,6 +49,9 @@ def make_evidence_tool(reader,trace,on_ready=None):
 
 
 def run_enhanced(prompt,reader,model=None,agent_factory=None):
+    incidents=set(re.findall(r'\bSTOP-\d{3}\b',prompt)) if isinstance(prompt,str) else set()
+    if len(incidents)!=1:
+        raise ValueError('Provide exactly one incident ID.')
     trace=[]
     budget=ModelCallBudget()
     def factory(**kwargs):
@@ -59,6 +63,8 @@ def run_enhanced(prompt,reader,model=None,agent_factory=None):
     result=run_agent(prompt,agent)
     if not trace:
         raise RuntimeError('Model did not invoke the evidence tool; run is not a successful demonstration.')
+    if trace[-1]['input']['incident_id'] != next(iter(incidents)):
+        raise RuntimeError('Model selected a different incident; no successful result is recorded.')
     result['answer']=render_brief(trace[-1]['result'])
     result.update(mode='enhanced',tool_count=1,trace=trace,
                   output_route='validated_evidence_renderer',

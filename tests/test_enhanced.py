@@ -79,6 +79,29 @@ def test_uninvoked_tool_is_a_failed_demonstration():
         run_enhanced('Investigate STOP-001',MagicMock(),object(),lambda **_:lambda p:'generic advice')
 
 
+def test_ambiguous_incident_request_fails_before_model_call():
+    factory=MagicMock()
+    with pytest.raises(ValueError,match='one incident'):
+        run_enhanced('Compare STOP-001 and STOP-002',MagicMock(),object(),factory)
+    factory.assert_not_called()
+
+
+def test_wrong_incident_selection_is_never_a_success():
+    from pathlib import Path
+    from linesignal.evidence import analyse_incident
+    reader=MagicMock()
+    reader.inspect.return_value=analyse_incident((Path(__file__).parents[1]/'data/incidents/STOP-002.json').read_bytes())
+    def factory(**kwargs):
+        agent=MagicMock()
+        def respond(prompt):
+            kwargs['tools'][0]('STOP-002')
+            return agent.cancel.call_args.kwargs['message']
+        agent.side_effect=respond
+        return agent
+    with pytest.raises(RuntimeError,match='different incident'):
+        run_enhanced('Investigate STOP-001',reader,object(),factory)
+
+
 def test_cli_writes_tool_trace_and_uses_fixed_bucket(monkeypatch,tmp_path):
     import json
     import boto3
