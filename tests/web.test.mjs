@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
-import {selectCase,timelinePoints,sceneAt,VIDEO_SECONDS} from '../docs/core.mjs';
+import {selectCase,timelinePoints,splitSegments,sceneAt,VIDEO_SECONDS} from '../docs/core.mjs';
 
 const runs=JSON.parse(await readFile(new URL('../demo/verified_runs.json',import.meta.url)));
 const fixture=JSON.parse(await readFile(new URL('../data/incidents/STOP-001.json',import.meta.url)));
@@ -30,4 +30,11 @@ test('walkthrough is shorter than three minutes with complete scene coverage',()
   assert.equal(sceneAt(0).index,0);
   assert.equal(sceneAt(VIDEO_SECONDS).index,6);
   assert.equal(sceneAt(VIDEO_SECONDS+10).index,6);
+});
+test('a chart never draws a continuous line across missing samples',()=>{
+  const points=timelinePoints(fixture).filter(p=>p.t<20||p.t>=28);
+  const pieces=splitSegments(points);
+  assert.equal(pieces.length,2);
+  assert.equal(pieces[0].at(-1).t,18);
+  assert.equal(pieces[1][0].t,28);
 });

@@ -24,3 +24,10 @@ export function timelinePoints(fixture){
     return {t,pressure:row.pressure_bar,blocked:row.photoeye_blocked};
   }).sort((a,b)=>a.t-b.t);
 }
+export function splitSegments(points){
+  const result=[];for(const point of points){
+    const last=result.at(-1);
+    if(!last||point.t-last.at(-1).t!==2)result.push([point]);
+    else last.push(point);
+  }return result;
+}
