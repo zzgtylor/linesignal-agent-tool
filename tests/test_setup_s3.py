@@ -35,3 +35,26 @@ def test_missing_data_is_detected_before_creation(tmp_path):
     with pytest.raises(FileNotFoundError):
         module.provision(client,'linesignal-evidence-012345abcd',tmp_path)
     assert not client.mock_calls
+
+
+def test_cli_writes_manifest_only_after_success(monkeypatch,tmp_path):
+    import boto3,json
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr('sys.argv',['setup_s3','--bucket','linesignal-evidence-012345abcd'])
+    monkeypatch.setattr(boto3,'client',lambda *a,**k:object())
+    monkeypatch.setattr(module,'provision',lambda *a,**k:{'bucket':'linesignal-evidence-012345abcd','synthetic':True})
+    module.main()
+    assert json.loads(Path('demo/deployment.json').read_text())['synthetic'] is True
+
+
+def test_cli_failure_does_not_publish_a_completed_manifest(monkeypatch,tmp_path):
+    import boto3
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr('sys.argv',['setup_s3'])
+    monkeypatch.setattr(boto3,'client',lambda *a,**k:object())
+    def fail(*a,**k):
+        raise RuntimeError('provisioning failed')
+    monkeypatch.setattr(module,'provision',fail)
+    with pytest.raises(RuntimeError):
+        module.main()
+    assert not Path('demo/deployment.json').exists()

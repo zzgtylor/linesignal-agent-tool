@@ -72,7 +72,7 @@ def main():
     from botocore.config import Config
     parser=argparse.ArgumentParser()
     parser.add_argument('--bucket',default=os.getenv('LINESIGNAL_BUCKET'))
-    parser.add_argument('--prompt',default='Investigate STOP-001 on packaging line L1. What changed first, and what should I check?')
+    parser.add_argument('--prompt',default='Investigate STOP-001.')
     parser.add_argument('--out',default='demo/enhanced.json')
     args=parser.parse_args()
     if not args.bucket:
