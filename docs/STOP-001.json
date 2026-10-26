@@ -1,0 +1,227 @@
+{
+  "schema_version": 1,
+  "synthetic": true,
+  "incident_id": "STOP-001",
+  "line_id": "L1",
+  "stop_at": "2026-10-26T10:15:00Z",
+  "sample_period_s": 2,
+  "samples": [
+    {
+      "at": "2026-10-26T10:14:00Z",
+      "pressure_bar": 6.1,
+      "motor_current_a": 5.9,
+      "photoeye_blocked": false,
+      "conveyor_running": true
+    },
+    {
+      "at": "2026-10-26T10:14:02Z",
+      "pressure_bar": 6.1,
+      "motor_current_a": 5.9,
+      "photoeye_blocked": false,
+      "conveyor_running": true
+    },
+    {
+      "at": "2026-10-26T10:14:04Z",
+      "pressure_bar": 6.1,
+      "motor_current_a": 5.9,
+      "photoeye_blocked": false,
+      "conveyor_running": true
+    },
+    {
+      "at": "2026-10-26T10:14:06Z",
+      "pressure_bar": 6.1,
+      "motor_current_a": 5.9,
+      "photoeye_blocked": false,
+      "conveyor_running": true
+    },
+    {
+      "at": "2026-10-26T10:14:08Z",
+      "pressure_bar": 6.1,
+      "motor_current_a": 5.9,
+      "photoeye_blocked": false,
+      "conveyor_running": true
+    },
+    {
+      "at": "2026-10-26T10:14:10Z",
+      "pressure_bar": 6.1,
+      "motor_current_a": 5.9,
+      "photoeye_blocked": false,
+      "conveyor_running": true
+    },
+    {
+      "at": "2026-10-26T10:14:12Z",
+      "pressure_bar": 6.1,
+      "motor_current_a": 5.9,
+      "photoeye_blocked": false,
+      "conveyor_running": true
+    },
+    {
+      "at": "2026-10-26T10:14:14Z",
+      "pressure_bar": 6.1,
+      "motor_current_a": 5.9,
+      "photoeye_blocked": false,
+      "conveyor_running": true
+    },
+    {
+      "at": "2026-10-26T10:14:16Z",
+      "pressure_bar": 6.1,
+      "motor_current_a": 5.9,
+      "photoeye_blocked": false,
+      "conveyor_running": true
+    },
+    {
+      "at": "2026-10-26T10:14:18Z",
+      "pressure_bar": 6.1,
+      "motor_current_a": 5.9,
+      "photoeye_blocked": false,
+      "conveyor_running": true
+    },
+    {
+      "at": "2026-10-26T10:14:20Z",
+      "pressure_bar": 6.1,
+      "motor_current_a": 5.9,
+      "photoeye_blocked": false,
+      "conveyor_running": true
+    },
+    {
+      "at": "2026-10-26T10:14:22Z",
+      "pressure_bar": 6.1,
+      "motor_current_a": 5.9,
+      "photoeye_blocked": false,
+      "conveyor_running": true
+    },
+    {
+      "at": "2026-10-26T10:14:24Z",
+      "pressure_bar": 6.1,
+      "motor_current_a": 5.9,
+      "photoeye_blocked": false,
+      "conveyor_running": true
+    },
+    {
+      "at": "2026-10-26T10:14:26Z",
+      "pressure_bar": 6.1,
+      "motor_current_a": 5.9,
+      "photoeye_blocked": false,
+      "conveyor_running": true
+    },
+    {
+      "at": "2026-10-26T10:14:28Z",
+      "pressure_bar": 6.1,
+      "motor_current_a": 5.9,
+      "photoeye_blocked": false,
+      "conveyor_running": true
+    },
+    {
+      "at": "2026-10-26T10:14:30Z",
+      "pressure_bar": 6.1,
+      "motor_current_a": 5.9,
+      "photoeye_blocked": false,
+      "conveyor_running": true
+    },
+    {
+      "at": "2026-10-26T10:14:32Z",
+      "pressure_bar": 6.1,
+      "motor_current_a": 5.9,
+      "photoeye_blocked": false,
+      "conveyor_running": true
+    },
+    {
+      "at": "2026-10-26T10:14:34Z",
+      "pressure_bar": 6.1,
+      "motor_current_a": 5.9,
+      "photoeye_blocked": false,
+      "conveyor_running": true
+    },
+    {
+      "at": "2026-10-26T10:14:36Z",
+      "pressure_bar": 6.1,
+      "motor_current_a": 5.9,
+      "photoeye_blocked": false,
+      "conveyor_running": true
+    },
+    {
+      "at": "2026-10-26T10:14:38Z",
+      "pressure_bar": 6.1,
+      "motor_current_a": 5.9,
+      "photoeye_blocked": false,
+      "conveyor_running": true
+    },
+    {
+      "at": "2026-10-26T10:14:40Z",
+      "pressure_bar": 6.1,
+      "motor_current_a": 5.9,
+      "photoeye_blocked": false,
+      "conveyor_running": true
+    },
+    {
+      "at": "2026-10-26T10:14:42Z",
+      "pressure_bar": 3.8,
+      "motor_current_a": 5.9,
+      "photoeye_blocked": false,
+      "conveyor_running": true
+    },
+    {
+      "at": "2026-10-26T10:14:44Z",
+      "pressure_bar": 3.8,
+      "motor_current_a": 5.9,
+      "photoeye_blocked": false,
+      "conveyor_running": true
+    },
+    {
+      "at": "2026-10-26T10:14:46Z",
+      "pressure_bar": 3.8,
+      "motor_current_a": 5.9,
+      "photoeye_blocked": false,
+      "conveyor_running": true
+    },
+    {
+      "at": "2026-10-26T10:14:48Z",
+      "pressure_bar": 3.8,
+      "motor_current_a": 5.9,
+      "photoeye_blocked": false,
+      "conveyor_running": true
+    },
+    {
+      "at": "2026-10-26T10:14:50Z",
+      "pressure_bar": 3.8,
+      "motor_current_a": 5.9,
+      "photoeye_blocked": false,
+      "conveyor_running": true
+    },
+    {
+      "at": "2026-10-26T10:14:52Z",
+      "pressure_bar": 3.8,
+      "motor_current_a": 5.9,
+      "photoeye_blocked": false,
+      "conveyor_running": true
+    },
+    {
+      "at": "2026-10-26T10:14:54Z",
+      "pressure_bar": 3.8,
+      "motor_current_a": 5.9,
+      "photoeye_blocked": true,
+      "conveyor_running": true
+    },
+    {
+      "at": "2026-10-26T10:14:56Z",
+      "pressure_bar": 3.8,
+      "motor_current_a": 5.9,
+      "photoeye_blocked": true,
+      "conveyor_running": true
+    },
+    {
+      "at": "2026-10-26T10:14:58Z",
+      "pressure_bar": 3.8,
+      "motor_current_a": 5.9,
+      "photoeye_blocked": true,
+      "conveyor_running": true
+    },
+    {
+      "at": "2026-10-26T10:15:00Z",
+      "pressure_bar": 3.8,
+      "motor_current_a": 5.9,
+      "photoeye_blocked": true,
+      "conveyor_running": false
+    }
+  ]
+}

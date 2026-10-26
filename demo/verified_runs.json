@@ -1,0 +1,217 @@
+{
+  "runtime": {
+    "service": "AWS CloudShell",
+    "region": "us-west-2",
+    "verified_at_utc": "2026-10-26T15:51:43.293155+00:00",
+    "source_commit": "fc66ef59c8ce975441adf250dc93fa83c8b71e75",
+    "model": "qwen3:1.7b"
+  },
+  "health": {
+    "public_access_block": {
+      "BlockPublicAcls": true,
+      "IgnorePublicAcls": true,
+      "BlockPublicPolicy": true,
+      "RestrictPublicBuckets": true
+    },
+    "versioning": "Enabled",
+    "encryption": "AES256",
+    "object_versions_match": true,
+    "ollama_http_status": 200,
+    "tests": "........................................................................ [100%]\n72 passed in 1.35s"
+  },
+  "baseline": {
+    "prompt": "Investigate STOP-001.",
+    "answer": "I cannot determine what changed first: this baseline has no telemetry tool. I can explain generic troubleshooting, but an incident-specific conclusion requires timestamped sensor evidence.",
+    "elapsed_ms": 0,
+    "output_route": "no_evidence_gate",
+    "model_calls": 0,
+    "mode": "baseline",
+    "tool_count": 0,
+    "provider": "ollama",
+    "model": "qwen3:1.7b"
+  },
+  "enhanced": {
+    "prompt": "Investigate STOP-001.",
+    "answer": "LineSignal | STOP-001 | synthetic demo data\n\nFirst observed sustained deviation: air pressure, 18 seconds before the recorded stop.\n\n[E001] 2026-10-26T10:14:42Z: air pressure changed from 6.1 to 3.8 (< 5 bar); two consecutive samples, 18 seconds before stop.\n\n[E002] 2026-10-26T10:14:54Z: photoeye blocked changed from False to True (true for at least two samples); two consecutive samples, 6 seconds before stop.\n\nNext check: Ask a trained operator to inspect the air supply, regulator and leak records under site isolation procedures.\n\nTemporal order is not causal proof. Read-only analysis; no restart or machine-control command is issued.\n\nSource: Amazon S3 / incidents/STOP-001.json | SHA-256 0f2f5e9df2e51405eab57963dae64bd6a1b894c896596cfc4e2e4bd2c827b924",
+    "elapsed_ms": 116871,
+    "agent_stop_reason": "cancelled",
+    "mode": "enhanced",
+    "tool_count": 1,
+    "trace": [
+      {
+        "tool": "inspect_stop_window",
+        "input": {
+          "incident_id": "STOP-001"
+        },
+        "result": {
+          "status": "observed",
+          "reason_codes": [],
+          "first_observed": {
+            "metric": "pressure_bar",
+            "at": "2026-10-26T10:14:42Z",
+            "value": 3.8,
+            "threshold": "< 5 bar",
+            "baseline_value": 6.1,
+            "lead_seconds": 18,
+            "consecutive_samples": 2,
+            "evidence_id": "E001"
+          },
+          "earliest_group": [
+            {
+              "metric": "pressure_bar",
+              "at": "2026-10-26T10:14:42Z",
+              "value": 3.8,
+              "threshold": "< 5 bar",
+              "baseline_value": 6.1,
+              "lead_seconds": 18,
+              "consecutive_samples": 2,
+              "evidence_id": "E001"
+            }
+          ],
+          "evidence": [
+            {
+              "metric": "pressure_bar",
+              "at": "2026-10-26T10:14:42Z",
+              "value": 3.8,
+              "threshold": "< 5 bar",
+              "baseline_value": 6.1,
+              "lead_seconds": 18,
+              "consecutive_samples": 2,
+              "evidence_id": "E001"
+            },
+            {
+              "metric": "photoeye_blocked",
+              "at": "2026-10-26T10:14:54Z",
+              "value": true,
+              "threshold": "true for at least two samples",
+              "baseline_value": false,
+              "lead_seconds": 6,
+              "consecutive_samples": 2,
+              "evidence_id": "E002"
+            }
+          ],
+          "not_causal_proof": true,
+          "limitations": [
+            "Temporal precedence is not causal proof.",
+            "Sampled signals may miss faster events or unmeasured factors.",
+            "Read-only evidence; a trained operator must authorize physical work."
+          ],
+          "incident_id": "STOP-001",
+          "line_id": "L1",
+          "synthetic": true,
+          "stop_at": "2026-10-26T10:15:00Z",
+          "window_start": "2026-10-26T10:14:00Z",
+          "sample_count": 31,
+          "sample_period_s": 2,
+          "source": {
+            "service": "Amazon S3",
+            "key": "incidents/STOP-001.json",
+            "sha256": "0f2f5e9df2e51405eab57963dae64bd6a1b894c896596cfc4e2e4bd2c827b924",
+            "etag": "\"6c2b460ad72eae80f5e297e6a2032b0b\"",
+            "version_id": "A2LXkMBfC4HHXTrK3OZ96fxcCMB1XxiR"
+          }
+        }
+      }
+    ],
+    "output_route": "validated_evidence_renderer",
+    "model_calls": 1,
+    "provider": "ollama",
+    "model": "qwen3:1.7b"
+  },
+  "missing": {
+    "prompt": "Investigate STOP-002.",
+    "answer": "LineSignal | STOP-002 | synthetic demo data\n\nCannot establish the event sequence or give an incident-specific diagnosis.\n\nData quality: missing_samples.\n\nNext check: obtain a complete 60-second window of UTC telemetry at 2-second intervals.\n\nTemporal order is not causal proof. Read-only analysis; no restart or machine-control command is issued.\n\nSource: Amazon S3 / incidents/STOP-002.json | SHA-256 ed9b94ea8a05f59274af0009a640514c47615d6d55d9bd0bd8fd43f657ad9173",
+    "elapsed_ms": 5990,
+    "agent_stop_reason": "cancelled",
+    "mode": "enhanced",
+    "tool_count": 1,
+    "trace": [
+      {
+        "tool": "inspect_stop_window",
+        "input": {
+          "incident_id": "STOP-002"
+        },
+        "result": {
+          "status": "insufficient_evidence",
+          "reason_codes": [
+            "missing_samples"
+          ],
+          "first_observed": null,
+          "earliest_group": [],
+          "evidence": [],
+          "not_causal_proof": true,
+          "limitations": [
+            "Temporal precedence is not causal proof.",
+            "Sampled signals may miss faster events or unmeasured factors.",
+            "Read-only evidence; a trained operator must authorize physical work."
+          ],
+          "incident_id": "STOP-002",
+          "line_id": "L1",
+          "synthetic": true,
+          "stop_at": "2026-10-26T10:15:00Z",
+          "window_start": "2026-10-26T10:14:00Z",
+          "sample_count": 27,
+          "sample_period_s": 2,
+          "source": {
+            "service": "Amazon S3",
+            "key": "incidents/STOP-002.json",
+            "sha256": "ed9b94ea8a05f59274af0009a640514c47615d6d55d9bd0bd8fd43f657ad9173",
+            "etag": "\"372016b2eb4fd8446c25faf0dd637579\"",
+            "version_id": "2gmdFLg0w0ZTggVIfP9c70oUVDg.mM2f"
+          }
+        }
+      }
+    ],
+    "output_route": "validated_evidence_renderer",
+    "model_calls": 1,
+    "provider": "ollama",
+    "model": "qwen3:1.7b"
+  },
+  "unknown": {
+    "prompt": "Investigate STOP-003.",
+    "answer": "LineSignal | STOP-003 | synthetic demo data\n\nNo sustained pre-stop threshold deviation was observed among the monitored signals; the cause remains unknown.\n\nNext check: collect higher-resolution or additional signals before selecting a cause.\n\nTemporal order is not causal proof. Read-only analysis; no restart or machine-control command is issued.\n\nSource: Amazon S3 / incidents/STOP-003.json | SHA-256 98e8938677028094c3b83cac10cb20a520fab8b785efa33854816c2dcae0cc2f",
+    "elapsed_ms": 6113,
+    "agent_stop_reason": "cancelled",
+    "mode": "enhanced",
+    "tool_count": 1,
+    "trace": [
+      {
+        "tool": "inspect_stop_window",
+        "input": {
+          "incident_id": "STOP-003"
+        },
+        "result": {
+          "status": "no_pre_stop_anomaly",
+          "reason_codes": [],
+          "first_observed": null,
+          "earliest_group": [],
+          "evidence": [],
+          "not_causal_proof": true,
+          "limitations": [
+            "Temporal precedence is not causal proof.",
+            "Sampled signals may miss faster events or unmeasured factors.",
+            "Read-only evidence; a trained operator must authorize physical work."
+          ],
+          "incident_id": "STOP-003",
+          "line_id": "L1",
+          "synthetic": true,
+          "stop_at": "2026-10-26T10:15:00Z",
+          "window_start": "2026-10-26T10:14:00Z",
+          "sample_count": 31,
+          "sample_period_s": 2,
+          "source": {
+            "service": "Amazon S3",
+            "key": "incidents/STOP-003.json",
+            "sha256": "98e8938677028094c3b83cac10cb20a520fab8b785efa33854816c2dcae0cc2f",
+            "etag": "\"0b3300b1a0112cc930cc97e5b9995f13\"",
+            "version_id": "UxZh3W3_of_x7Ny3XXWoRo9X6BfvnHaN"
+          }
+        }
+      }
+    ],
+    "output_route": "validated_evidence_renderer",
+    "model_calls": 1,
+    "provider": "ollama",
+    "model": "qwen3:1.7b"
+  }
+}
