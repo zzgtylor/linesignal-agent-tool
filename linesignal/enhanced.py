@@ -3,6 +3,7 @@ import argparse
 import json
 import os
 import re
+import threading
 from pathlib import Path
 
 from strands import Agent, tool
@@ -27,6 +28,8 @@ class ModelCallBudget(HookProvider):
 
 
 def make_evidence_tool(reader,trace,on_ready=None):
+    reservation_lock=threading.Lock()
+    read_count=0
     @tool
     def inspect_stop_window(incident_id: str) -> dict:
         """Inspect the 60 seconds before a line stop using bounded S3 telemetry.
@@ -37,11 +40,15 @@ def make_evidence_tool(reader,trace,on_ready=None):
         Args:
             incident_id: One of STOP-001, STOP-002 or STOP-003.
         """
-        if len(trace) >= 2:
-            return _insufficient(['tool_read_budget_exhausted'])
+        nonlocal read_count
+        with reservation_lock:
+            if read_count >= 2:
+                return _insufficient(['tool_read_budget_exhausted'])
+            read_count+=1
         result=reader.inspect(incident_id)
-        trace.append({'tool':'inspect_stop_window','input':{'incident_id':incident_id},
-                      'result':result})
+        with reservation_lock:
+            trace.append({'tool':'inspect_stop_window','input':{'incident_id':incident_id},
+                          'result':result})
         if on_ready is not None:
             on_ready(result)
         return result

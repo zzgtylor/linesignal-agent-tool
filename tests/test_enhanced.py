@@ -29,6 +29,27 @@ def test_tool_read_budget_fails_closed():
     assert result['status'] == 'insufficient_evidence'
 
 
+def test_parallel_tool_calls_cannot_exceed_read_budget():
+    import threading,time
+    from concurrent.futures import ThreadPoolExecutor
+    reader=MagicMock()
+    def read(incident_id):
+        time.sleep(0.03)
+        return {'status':'observed'}
+    reader.inspect.side_effect=read
+    trace=[]
+    tool=make_evidence_tool(reader,trace)
+    start=threading.Barrier(3)
+    def invoke(incident_id):
+        start.wait(timeout=2)
+        return tool(incident_id)
+    with ThreadPoolExecutor(max_workers=3) as pool:
+        results=list(pool.map(invoke,['STOP-001','STOP-002','STOP-003']))
+    assert reader.inspect.call_count == 2
+    assert len(trace) == 2
+    assert sum(r['status']=='insufficient_evidence' for r in results) == 1
+
+
 def test_model_budget_stops_run_instead_of_unbounded_retry():
     budget=ModelCallBudget(3)
     for _ in range(3):
