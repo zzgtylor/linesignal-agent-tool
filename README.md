@@ -64,7 +64,23 @@ python -m pip wheel --no-deps --no-build-isolation .
 Tests cover gaps, duplicates, ties, strict types, invalid numbers, arbitrary
 paths, oversized objects, stream closure, private fixture setup, call budgets
 and report grounding. Mocked tests do not establish live model quality.
-Actual run traces and a public walkthrough are added after live verification.
+Recorded AWS verification is available in [demo/verified_runs.json](demo/verified_runs.json).
+It reports 72 passing Python tests, S3 configuration checks, an Ollama HTTP 200
+health check, and three actual agent runs over synthetic data. The public
+[recorded-run replay](https://zzgtylor.github.io/linesignal-agent-tool/) is a
+visualization of those records rather than a live hosted agent. Run `npm test`
+for the five replay tests.
+
+## Project materials
+
+- [Project write-up and delivery status](SUBMISSION.md)
+- [Video title, description, and publication instructions](VIDEO_UPLOAD.md)
+- [Recorded execution evidence](demo/verified_runs.json)
+
+A checked 126-second captioned MP4 has been produced. Its public upload and
+the AWS contest submission remain unverified. The challenge page shows an
+October 26, 2026 deadline; this documentation update does not establish a
+successful or on-time entry.
 
 This is a read-only prototype, not a fault predictor. It does not prove
 causation or demonstrate a measured reduction in downtime. Its reusable pattern
